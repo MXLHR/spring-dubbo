@@ -1,27 +1,36 @@
 package com.zhph.spring.springboot.lesson1.aop;
 
+import java.lang.reflect.Method;
+
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
 public class LogAspect {
 	
-	public void annotionPointCut(){
+	@Pointcut("@annotation(com.zhph.spring.springboot.lesson1.aop.Action)")
+	public void annotationPointCut(){};
+	
+	@After(value = "annotationPointCut()")
+	public void after(JoinPoint jp){
+		MethodSignature signature = (MethodSignature) jp.getSignature();
+		Method method = signature.getMethod();
+		Action action = method.getAnnotation(Action.class);
+		System.out.println("after.. 注解式拦截 ---> "+ action.name());
 		
 	};
 	
-	@After(value = "annotionPointCut()")
-	public void after(){
-		System.out.println("after..");
-		
-	};
-	
-	@Before(value = "")
-	public void before(){
-		System.out.println("before..");
+	@Before(value = "execution(* com.zhph.spring.springboot.lesson1.aop..*.*(..))")
+	public void before(JoinPoint jp){
+		MethodSignature signature = (MethodSignature) jp.getSignature();
+		Method method = signature.getMethod();
+		System.out.println("before..方法规则拦截 ---> "+method.getName());
 	};
 	
 
