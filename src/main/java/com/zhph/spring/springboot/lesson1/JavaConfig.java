@@ -3,7 +3,7 @@ package com.zhph.spring.springboot.lesson1;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration//1
+//@Configuration//1
 public class JavaConfig {
 	
 	@Bean//2
