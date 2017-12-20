@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop 
+	    http://www.springframework.org/schema/aop/spring-aop-3.1.xsd 
+	    http://www.springframework.org/schema/tx 
+	    http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
+	default-lazy-init="true">
+	
+	<context:component-scan base-package="com.zhph.*"></context:component-scan>
+	
+	<bean id="greetAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice" ref="greetingAroundAdvice"></property>
+		<property name="pattern" value="com.zhph.spring.springboot.lesson1.aop_c1.GreetingImpl.good.*"></property>
+	</bean>
+<!-- 1.spring 框架自动生成代理 	 
+	<bean  class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+		<property name="optimize" value="true"></property>
+	</bean>  -->
+<!-- 2.spring 根据bean名称来自动生成代理	 -->
+	<bean  class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames" value="*Impl"></property>
+		<property name="interceptorNames" value="greetAdvisor"></property>
+		<property name="optimize" value="true"></property>
+	</bean>  
+	<!-- 属性optimize意思是对代理生成策略是否优化，
+	true表示如果目标类有接口则代理接口（JDK动态代理），如果没有则代理类（CGLib动态代理），
+	这样便可以取代前面强制代理类的proxyTargetClass属性。 -->
+
+</beans>  

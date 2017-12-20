@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop 
+	    http://www.springframework.org/schema/aop/spring-aop-3.1.xsd 
+	    http://www.springframework.org/schema/tx 
+	    http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
+	default-lazy-init="true">
+	<context:component-scan base-package="com.zhph.aop.*"></context:component-scan>
+	
+	<!-- <aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy> -->
+    <!-- 自动为切面方法中匹配的方法所在的类生成代理对象。 -->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>  
+	<!-- ，proxy-target-class为true表示代理目标类。
+		属性proxy-target-class默认为false，代表只代理接口，也就是说只能将代理转型为Greeting，而不能是GreetingImpl
+	 -->
+</beans>  
