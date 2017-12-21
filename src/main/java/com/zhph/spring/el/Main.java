@@ -1,10 +1,20 @@
 package com.zhph.spring.el;
 
-public class Application {
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.zhph.spring.el.config.ElConfig;
+
+public class Main {
 	
 	public static void main(String[] args) {
 		
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ElConfig.class);
 		
+		ElConfig resource = context.getBean(ElConfig.class);
+		
+		resource.outputResource();
+		
+		context.close();
 		
 	}
 	
