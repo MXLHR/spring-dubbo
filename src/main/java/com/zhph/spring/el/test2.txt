@@ -1,0 +1,2 @@
+book.author=xianlei222
+book.name=springBoot222
